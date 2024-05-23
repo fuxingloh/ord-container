@@ -36,3 +36,21 @@ describe('bitcoind', () => {
     });
   });
 });
+
+describe('ord', () => {
+  let ord: KarfiaContainer;
+
+  beforeAll(() => {
+    ord = testcontainers.getContainer('ord');
+  });
+
+  it('should get', async () => {
+    const response = await ord.fetch({
+      endpoint: 'api',
+      method: 'GET',
+      path: '/status',
+    });
+
+    console.log(await response.json());
+  });
+});

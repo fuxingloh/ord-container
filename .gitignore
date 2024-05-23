@@ -15,6 +15,9 @@ coverage
 # contented
 .contented
 
+# contented
+.karfia
+
 # tsconfig.json
 packages/*/**/*.d.ts
 packages/*/**/*.d.ts.map

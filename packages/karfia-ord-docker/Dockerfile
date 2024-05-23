@@ -17,4 +17,5 @@ ENV RUST_BACKTRACE=1
 ENV RUST_LOG=info
 
 ENTRYPOINT ["ord"]
+EXPOSE 8080
 CMD ["server", "--http-port", "8080"]

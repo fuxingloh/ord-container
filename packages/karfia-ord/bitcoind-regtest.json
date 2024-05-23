@@ -65,7 +65,6 @@
           "key": "RPC_PASSWORD"
         }
       },
-      "command": ["btc_oneshot", "-txindex=1"],
       "volumes": {
         "persistent": {
           "paths": ["/bitcoin/.bitcoin"],
@@ -74,33 +73,35 @@
       }
     },
     "ord": {
-      "image": "ghcr.io/fuxingloh/karfia-ord-docker:0.18.5",
+      "image": "ghcr.io/fuxingloh/karfia-ord:0.18.5",
       "source": "https://github.com/fuxingloh/karfia-ord",
+      "endpoints": {
+        "api": {
+          "port": 8080,
+          "protocol": "HTTP REST",
+          "probes": {
+            "readiness": {
+              "method": "GET",
+              "path": "/status",
+              "match": {
+                "status": 200
+              }
+            }
+          }
+        }
+      },
       "resources": {
         "cpu": 0.25,
         "memory": 256
       },
       "environment": {
+        "ORD_CHAIN": "regtest",
+        "ORD_BITCOIN_RPC_URL": "http://bitcoind:8332",
         "ORD_BITCOIN_RPC_USERNAME": {
           "key": "RPC_USER"
         },
         "ORD_BITCOIN_RPC_PASSWORD": {
           "key": "RPC_PASSWORD"
-        }
-      },
-      "endpoints": {
-        "rpc": {
-          "port": 8080,
-          "protocol": "HTTP JSON-RPC 2.0",
-          "authorization": {
-            "type": "HttpBasic",
-            "username": {
-              "key": "RPC_USER"
-            },
-            "password": {
-              "key": "RPC_PASSWORD"
-            }
-          }
         }
       }
     }
