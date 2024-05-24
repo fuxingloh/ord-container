@@ -11,11 +11,10 @@ RUN cargo build --bin ord --release
 FROM debian:bookworm-slim
 
 COPY --from=builder /usr/src/ord/target/release/ord /usr/local/bin
-RUN apt-get update && apt-get install -y openssl
+RUN apt-get update && apt-get install -y openssl wait-for-it
 
 ENV RUST_BACKTRACE=1
 ENV RUST_LOG=info
 
-ENTRYPOINT ["ord"]
 EXPOSE 8080
-CMD ["server", "--http-port", "8080"]
+CMD ["sh", "-c", "wait-for-it ${ORD_BITCOIN_HOST_PORT} -t 30 -- ord server --http-port 8080"]

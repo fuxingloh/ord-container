@@ -44,13 +44,20 @@ describe('ord', () => {
     ord = testcontainers.getContainer('ord');
   });
 
-  it('should get', async () => {
+  it('should get /sat/0', async () => {
     const response = await ord.fetch({
       endpoint: 'api',
       method: 'GET',
-      path: '/status',
+      path: '/sat/0',
+      headers: {
+        Accept: 'application/json',
+      },
     });
 
-    console.log(await response.json());
+    expect(await response.json()).toMatchObject({
+      block: 0,
+      number: 0,
+      charms: ['coin', 'mythic'],
+    });
   });
 });
