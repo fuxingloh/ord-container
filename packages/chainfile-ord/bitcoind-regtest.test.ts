@@ -1,5 +1,5 @@
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 import { ChainfileContainer, ChainfileTestcontainers } from '@chainfile/testcontainers';
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
 
 import regtest from './bitcoind-regtest.json';
 
