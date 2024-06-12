@@ -1,10 +1,10 @@
 # Based on https://github.com/ordinals/ord/blob/a3cd33eed95772e17f63e07cdab4a12bdc04f33b/Dockerfile
 FROM rust:1.76.0-bookworm as builder
-ARG BRANCH
 
 WORKDIR /usr/src/ord
 
-RUN git clone https://github.com/ordinals/ord.git --branch $BRANCH --depth 1 .
+ARG ORD_VERSION
+RUN git clone https://github.com/ordinals/ord.git --branch $ORD_VERSION --depth 1 .
 
 RUN cargo build --bin ord --release
 

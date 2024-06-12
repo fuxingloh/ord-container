@@ -1,12 +1,12 @@
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
-import { KarfiaContainer, KarfiaTestcontainers } from 'karfia-testcontainers';
+import { ChainfileContainer, ChainfileTestcontainers } from '@chainfile/testcontainers';
 
-import definition from './bitcoind-regtest.json';
+import regtest from './bitcoind-regtest.json';
 
-let testcontainers: KarfiaTestcontainers;
+const testcontainers = new ChainfileTestcontainers(regtest);
 
 beforeAll(async () => {
-  testcontainers = await KarfiaTestcontainers.start(definition);
+  await testcontainers.start();
 });
 
 afterAll(async () => {
@@ -14,10 +14,10 @@ afterAll(async () => {
 });
 
 describe('bitcoind', () => {
-  let bitcoind: KarfiaContainer;
+  let bitcoind: ChainfileContainer;
 
   beforeAll(() => {
-    bitcoind = testcontainers.getContainer('bitcoind');
+    bitcoind = testcontainers.get('bitcoind');
   });
 
   it('should rpc getblockchaininfo', async () => {
@@ -38,10 +38,10 @@ describe('bitcoind', () => {
 });
 
 describe('ord', () => {
-  let ord: KarfiaContainer;
+  let ord: ChainfileContainer;
 
   beforeAll(() => {
-    ord = testcontainers.getContainer('ord');
+    ord = testcontainers.get('ord');
   });
 
   it('should get /sat/0', async () => {

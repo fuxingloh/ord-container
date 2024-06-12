@@ -7,18 +7,19 @@ on:
     branches: [main]
 
 concurrency:
-  group: '${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}'
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
+  packages: read
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
@@ -30,11 +31,29 @@ jobs:
 
       - run: pnpm turbo run build
 
-  test:
-    name: Test
+  test_plan:
+    name: Test [plan]
     runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.plan.outputs.packages }}
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
+      - uses: fuxingloh/turbo-plan@4bd6ef3cdb543fbf5fca55b6b5b74892acecdfa5 # v2
+        id: plan
+        with:
+          task: test
+
+  test_run:
+    name: Test [run]
+    needs: test_plan
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJSON(needs.test_plan.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
@@ -44,13 +63,25 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - run: pnpm turbo run test
+      - run: pnpm turbo run test --filter=${{ matrix.package }}
+
+  test_completed:
+    name: Test [completed]
+    runs-on: ubuntu-latest
+    if: always()
+    needs:
+      - test_run
+    steps:
+      - run: |
+          if ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'skipped') || contains(needs.*.result, 'cancelled') }} ; then          
+            exit 1
+          fi
 
   lint_prettier:
     name: Lint [prettier]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
@@ -66,7 +97,7 @@ jobs:
     name: Lint [eslint]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
 
       - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
