@@ -9,7 +9,8 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      eslint:
-        patterns:
-          - 'eslint'
-          - '@eslint/*'
+      development:
+        dependency-type: development
+        exclude-patterns:
+          - 'chainfile-*'
+          - '@chainfile/*'
