@@ -7,10 +7,25 @@ updates:
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: 'weekly'
+      interval: 'daily'
     groups:
       development:
         dependency-type: development
+        update-types:
+          - 'minor'
+          - 'patch'
         exclude-patterns:
+          - 'eslint'
           - 'chainfile-*'
           - '@chainfile/*'
+      workspace:
+        update-types:
+          - 'minor'
+          - 'patch'
+        patterns:
+          - 'prettier-*'
+          - 'typescript-eslint'
+          - 'globals'
+          - '@eslint/*'
+          - 'eslint'
+          - 'eslint-*'
