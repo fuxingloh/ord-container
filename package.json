@@ -15,9 +15,9 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@swc/core": "^1.5.29",
+    "@swc/core": "^1.6.1",
     "@swc/jest": "0.2.36",
-    "@types/node": "^20.14.2",
+    "@types/node": "^20.14.3",
     "@workspace/eslint-config": "workspace:*",
     "@workspace/jest-preset": "workspace:*",
     "@workspace/prettier-config": "workspace:*",
