@@ -13,13 +13,11 @@
   "lint-staged": {
     "*": "prettier --write --ignore-unknown"
   },
+  "prettier": "@workspace/prettier-config",
   "devDependencies": {
-    "@jest/globals": "^29.7.0",
-    "@swc/core": "^1.5.29",
-    "@swc/jest": "0.2.36",
     "@types/node": "^20.14.2",
     "@workspace/eslint-config": "workspace:*",
-    "@workspace/jest-preset": "workspace:*",
+    "@workspace/jest": "workspace:*",
     "@workspace/prettier-config": "workspace:*",
     "@workspace/tsconfig": "workspace:*",
     "eslint": "^8.57.0",
@@ -28,12 +26,10 @@
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.2",
     "turbo": "^2.0.4",
-    "typescript": "5.4.5",
-    "wait-for-expect": "^3.0.2"
+    "typescript": "5.4.5"
   },
-  "packageManager": "pnpm@8.15.8",
+  "packageManager": "pnpm@9.4.0",
   "engines": {
-    "node": "^20 <21",
-    "pnpm": "^8 <9"
+    "node": "^20 <21"
   }
 }
