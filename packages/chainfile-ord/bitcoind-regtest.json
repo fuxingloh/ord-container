@@ -2,7 +2,7 @@
   "$schema": "https://chainfile.org/schema.json",
   "caip2": "bip122:0f9188f13cb7b2c71f2a335e3a4fc328",
   "name": "Bitcoin Regtest",
-  "values": {
+  "params": {
     "bitcoind_rpc_user": "user",
     "bitcoind_rpc_password": "password",
     "ord_version": "0.18.5"
@@ -23,10 +23,10 @@
           "authorization": {
             "type": "HttpBasic",
             "username": {
-              "$value": "bitcoind_rpc_user"
+              "$param": "bitcoind_rpc_user"
             },
             "password": {
-              "$value": "bitcoind_rpc_password"
+              "$param": "bitcoind_rpc_password"
             }
           },
           "probes": {
@@ -55,23 +55,17 @@
       "environment": {
         "REGTEST": "1",
         "RPCUSER": {
-          "$value": "bitcoind_rpc_user"
+          "$param": "bitcoind_rpc_user"
         },
         "RPCPASSWORD": {
-          "$value": "bitcoind_rpc_password"
-        }
-      },
-      "volumes": {
-        "persistent": {
-          "paths": ["/bitcoin/.bitcoin"],
-          "size": "250M"
+          "$param": "bitcoind_rpc_password"
         }
       }
     },
     "ord": {
       "image": "ghcr.io/vetumorg/ord",
       "tag": {
-        "$value": "ord_version"
+        "$param": "ord_version"
       },
       "source": "https://github.com/vetumorg/chainfile-ord",
       "endpoints": {
@@ -98,10 +92,10 @@
         "ORD_BITCOIN_HOST_PORT": "bitcoind:8332",
         "ORD_BITCOIN_RPC_URL": "http://bitcoind:8332",
         "ORD_BITCOIN_RPC_USERNAME": {
-          "$value": "bitcoind_rpc_user"
+          "$param": "bitcoind_rpc_user"
         },
         "ORD_BITCOIN_RPC_PASSWORD": {
-          "$value": "bitcoind_rpc_password"
+          "$param": "bitcoind_rpc_password"
         }
       }
     }

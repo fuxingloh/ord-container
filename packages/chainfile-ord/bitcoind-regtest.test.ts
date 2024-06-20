@@ -1,9 +1,9 @@
-import { ChainfileContainer, ChainfileTestcontainers } from '@chainfile/testcontainers';
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals';
+import { CFContainer, CFTestcontainers } from '@chainfile/testcontainers';
+import { afterAll, beforeAll, describe, expect, it } from '@workspace/jest/globals';
 
 import regtest from './bitcoind-regtest.json';
 
-const testcontainers = new ChainfileTestcontainers(regtest);
+const testcontainers = new CFTestcontainers(regtest);
 
 beforeAll(async () => {
   await testcontainers.start();
@@ -14,7 +14,7 @@ afterAll(async () => {
 });
 
 describe('bitcoind', () => {
-  let bitcoind: ChainfileContainer;
+  let bitcoind: CFContainer;
 
   beforeAll(() => {
     bitcoind = testcontainers.get('bitcoind');
@@ -38,7 +38,7 @@ describe('bitcoind', () => {
 });
 
 describe('ord', () => {
-  let ord: ChainfileContainer;
+  let ord: CFContainer;
 
   beforeAll(() => {
     ord = testcontainers.get('ord');
