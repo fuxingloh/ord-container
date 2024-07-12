@@ -20,23 +20,23 @@ async function run(version, type) {
     '.',
     '--progress=plain',
     '-t',
-    `ghcr.io/vetumorg/ord:${version}`,
+    `ghcr.io/fuxingloh/ord-container:${version}`,
     '--build-arg',
     `ORD_VERSION=${version}`,
     '--cache-from',
-    'type=registry,ref=ghcr.io/vetumorg/ord:build-cache',
+    'type=registry,ref=ghcr.io/fuxingloh/ord-container:build-cache',
   ];
 
   if (type === 'push') {
     args.push(
       '-t',
-      'ghcr.io/vetumorg/ord:latest',
+      'ghcr.io/fuxingloh/ord-container:latest',
       '--output',
       'type=registry',
       '--platform',
       'linux/amd64,linux/arm64',
       '--cache-to',
-      'type=registry,ref=ghcr.io/vetumorg/ord:build-cache',
+      'type=registry,ref=ghcr.io/fuxingloh/ord-container:build-cache',
     );
   }
 

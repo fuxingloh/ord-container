@@ -15,5 +15,3 @@ updates:
           - 'minor'
           - 'patch'
         exclude-patterns:
-          - 'chainfile-*'
-          - '@chainfile/*'

@@ -1,8 +1,8 @@
-# Chainfile Ord (ordinals/ord)
+# Docker Container for Ord (ordinals/ord)
 
-> Experimental!
+Experimental!
 
-Part of the Chainfile ecosystem.
+> Initially created for use in [fuxingloh/chainfile](https://github.com/fuxingloh/chainfile).
 
 ## License
 
