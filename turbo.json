@@ -16,9 +16,6 @@
     "push:docker": {
       "cache": false
     },
-    "test": {
-      "dependsOn": ["ord-docker#build:docker", "^build"]
-    },
     "lint": {
       "outputs": []
     }
